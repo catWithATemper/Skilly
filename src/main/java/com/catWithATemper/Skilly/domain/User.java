@@ -1,20 +1,36 @@
 package com.catWithATemper.Skilly.domain;
 
+import java.util.HashSet;
+import java.util.Set;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "app_user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private String name;
 
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private Set<TrainingSession> trainingSessions = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "user_skill", joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private Set<Skill> skills = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -38,5 +54,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<TrainingSession> getTrainingSessions() {
+        return trainingSessions;
+    }
+
+    public void SetTrainingSessions(Set<TrainingSession> trainingSessions) {
+        this.trainingSessions = trainingSessions;
+    }
+
+    public Set<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(Set<Skill> skills) {
+        this.skills = skills;
     }
 }
