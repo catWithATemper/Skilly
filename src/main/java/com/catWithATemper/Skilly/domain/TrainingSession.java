@@ -1,7 +1,6 @@
 package com.catWithATemper.Skilly.domain;
 
 import java.time.LocalDate;
-import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,6 +34,20 @@ public class TrainingSession {
     @ManyToOne
     @JoinColumn(name = "skill_id")
     private Skill skill;
+
+    protected TrainingSession() {
+        // Required by JPA
+    }
+
+    public TrainingSession(LocalDate date, int durationMinutes, String notes, int rating, User user,
+            Skill skill) {
+        this.date = date;
+        this.durationMinutes = durationMinutes;
+        this.notes = notes;
+        this.rating = rating;
+        this.user = user;
+        this.skill = skill;
+    }
 
     public Long getId() {
         return id;

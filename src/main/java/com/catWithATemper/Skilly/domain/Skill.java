@@ -31,6 +31,16 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     private Set<User> users = new HashSet<>();
 
+    protected Skill() {
+        // Required by JPA
+    }
+
+    public Skill(String name, Category category, String description) {
+        this.name = name;
+        this.category = category;
+        this.description = description;
+    }
+
     public Long getId() {
         return id;
     }

@@ -32,6 +32,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private Set<Skill> skills = new HashSet<>();
 
+    protected User() {
+        // Required by JPA
+    }
+
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }
@@ -76,7 +85,7 @@ public class User {
     public String toString() {
         return "User{" + "id=" + id + ", name=" + name + ", email=" + email + '}';
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
