@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 
 @Entity
 public class TrainingSession {
@@ -21,6 +23,8 @@ public class TrainingSession {
 
     private String notes;
 
+    @Min(1)
+    @Max(5)
     private int rating;
 
     @ManyToOne
