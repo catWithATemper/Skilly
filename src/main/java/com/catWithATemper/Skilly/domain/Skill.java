@@ -70,4 +70,27 @@ public class Skill {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+
+    @Override
+    public String toString() {
+        return "Skill{" + "id=" + id + ", name=" + name + ", category=" + category
+                + ", description=" + description + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Skill))
+            return false;
+
+        Skill skill = (Skill) o;
+
+        return getId() != null ? getId().equals(skill.getId()) : skill.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
 }

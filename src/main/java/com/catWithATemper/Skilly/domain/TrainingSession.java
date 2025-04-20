@@ -1,6 +1,7 @@
 package com.catWithATemper.Skilly.domain;
 
 import java.time.LocalDate;
+import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -89,5 +90,29 @@ public class TrainingSession {
 
     public void setSkill(Skill skill) {
         this.skill = skill;
+    }
+
+    @Override
+    public String toString() {
+        return "TrainingSession{" + "id=" + id + ", date=" + date + ", durationMinutes="
+                + durationMinutes + ", notes=" + notes + "rating=" + rating + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof TrainingSession))
+            return false;
+
+        TrainingSession trainingSession = (TrainingSession) o;
+
+        return getId() != null ? getId().equals(trainingSession.getId())
+                : trainingSession.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
     }
 }
