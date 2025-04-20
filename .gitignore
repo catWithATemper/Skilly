@@ -1,8 +1,49 @@
-HELP.md
+# Java
+*.class
+*.jar
+*.war
+*.log
+
+# Maven
 target/
+dependency-reduced-pom.xml
+release.properties
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+
+# VS Code
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# IDEs
+*.iws
+*.ipr
+
+# Node
+node_modules/
+dist/
+.env
+.angular/
+
+# NPM logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+HELP.md
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+**/test-output/
+*.mv.db
+*.h2.db
 
 ### STS ###
 .apt_generated
