@@ -2,6 +2,7 @@ package com.catWithATemper.Skilly.domain;
 
 import java.time.LocalDate;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,11 +32,13 @@ public class TrainingSession {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     // @JsonBackReference
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "skill_id")
+    @JsonIgnore
     private Skill skill;
 
     protected TrainingSession() {
