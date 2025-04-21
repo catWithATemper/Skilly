@@ -2,6 +2,9 @@ package com.catWithATemper.Skilly.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,7 +28,7 @@ public class Skill {
 
     private String description;
 
-    @OneToMany(mappedBy = "skill")
+    @OneToMany(mappedBy = "skill", cascade = CascadeType.ALL)
     private Set<TrainingSession> traningSessions = new HashSet<>();
 
     protected Skill() {
