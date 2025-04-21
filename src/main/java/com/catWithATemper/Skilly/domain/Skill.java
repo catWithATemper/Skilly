@@ -28,9 +28,6 @@ public class Skill {
     @OneToMany(mappedBy = "skill")
     private Set<TrainingSession> traningSessions = new HashSet<>();
 
-    @ManyToMany(mappedBy = "skills")
-    private Set<User> users = new HashSet<>();
-
     protected Skill() {
         // Required by JPA
     }
@@ -71,14 +68,6 @@ public class Skill {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     @Override

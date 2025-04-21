@@ -27,11 +27,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<TrainingSession> trainingSessions = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "user_skill", joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private Set<Skill> skills = new HashSet<>();
-
     protected User() {
         // Required by JPA
     }
@@ -67,18 +62,6 @@ public class User {
 
     public Set<TrainingSession> getTrainingSessions() {
         return trainingSessions;
-    }
-
-    public void SetTrainingSessions(Set<TrainingSession> trainingSessions) {
-        this.trainingSessions = trainingSessions;
-    }
-
-    public Set<Skill> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(Set<Skill> skills) {
-        this.skills = skills;
     }
 
     @Override

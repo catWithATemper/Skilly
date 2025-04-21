@@ -50,13 +50,6 @@ public class DataSeeder implements CommandLineRunner {
 
                 skillRepository.saveAll(List.of(java, communication, projectManagement, french));
 
-                // Link users to skills
-                java.getUsers().add(alice);
-                java.getUsers().add(bob);
-                communication.getUsers().add(clara);
-                projectManagement.getUsers().add(alice);
-                french.getUsers().add(bob);
-
                 // 🗓 Training Sessions
                 TrainingSession session1 = new TrainingSession(LocalDate.of(2024, 12, 5), 90,
                                 "Completed Java course on Udemy", 5, alice, java);
