@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/skills")
@@ -47,5 +49,18 @@ public class SkillController {
 
         skillRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Skill> updateSkill(@PathVariable Long id,
+            @RequestBody Skill updatedSkill) {
+        return skillRepository.findById(id).map(existingSkill -> {
+            existingSkill.setName(updatedSkill.getName());
+            existingSkill.setCategory(updatedSkill.getCategory());
+            existingSkill.setDescription(updatedSkill.getDescription());
+            skillRepository.save(existingSkill);
+
+            return ResponseEntity.ok(existingSkill);
+        }).orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }

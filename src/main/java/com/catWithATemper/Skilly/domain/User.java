@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 
 @Entity
 @Table(name = "app_user")
@@ -20,6 +21,7 @@ public class User {
 
     private String name;
 
+    @Email
     private String email;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

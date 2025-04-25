@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/users")
@@ -46,5 +48,18 @@ public class UserController {
 
         userRepository.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userRepository.findById(id)
+                .map(existingUser -> {
+                    existingUser.setName(updatedUser.getName());
+                    existingUser.setEmail(updatedUser.getEmail());
+                    userRepository.save(existingUser);
+
+                    return ResponseEntity.ok(existingUser);
+                })
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
