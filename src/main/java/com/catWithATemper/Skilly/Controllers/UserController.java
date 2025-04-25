@@ -1,4 +1,4 @@
-package com.catWithATemper.Skilly.Controllers;
+package com.catWithATemper.Skilly.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

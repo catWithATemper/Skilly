@@ -1,4 +1,4 @@
-package com.catWithATemper.Skilly.Configuration;
+package com.catWithATemper.Skilly.configuration;
 
 import java.time.LocalDate;
 import java.util.List;
