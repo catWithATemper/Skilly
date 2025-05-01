@@ -11,8 +11,10 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 public class TrainingSession {
 
     @Id
@@ -40,10 +42,6 @@ public class TrainingSession {
     @JoinColumn(name = "skill_id")
     @JsonIgnore
     private Skill skill;
-
-    protected TrainingSession() {
-        // Required by JPA
-    }
 
     public TrainingSession(LocalDate date, int durationMinutes, String notes, int rating, User user,
             Skill skill) {

@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "app_user")
