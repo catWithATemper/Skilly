@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class TrainingSessionDTO {
+    private Long id;
     private LocalDate date;
     private int durationMinutes;
     private String notes;

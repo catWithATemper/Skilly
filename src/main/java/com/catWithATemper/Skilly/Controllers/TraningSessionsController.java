@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("/trainingsessions")
 public class TraningSessionsController {
@@ -36,13 +35,17 @@ public class TraningSessionsController {
     private SkillRepository skillRepository;
 
     @GetMapping
-    public List<TrainingSession> getAllTrainingSessions() {
-        return trainingSessionRepository.findAll();
+    public ResponseEntity<List<TrainingSessionDTO>> getAllTrainingSessions() {
+        List<TrainingSessionDTO> sessions = trainingSessionRepository.findAll().stream()
+                .map(TrainingSessionMapper::toDTO).toList();
+
+        return ResponseEntity.ok(sessions);
     }
 
-    @GetMapping("(/id)")
-    public ResponseEntity<TrainingSession> getTrainingSessionById(@PathVariable Long id) {
-        return trainingSessionRepository.findById(id).map(ResponseEntity::ok)
+    @GetMapping("/{id}")
+    public ResponseEntity<TrainingSessionDTO> getTrainingSessionById(@PathVariable Long id) {
+        return trainingSessionRepository.findById(id)
+                .map(session -> ResponseEntity.ok(TrainingSessionMapper.toDTO(session)))
                 .orElse(ResponseEntity.notFound().build());
     }
 

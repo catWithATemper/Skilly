@@ -19,4 +19,18 @@ public class TrainingSessionMapper {
 
         return session;
     }
+
+    public static TrainingSessionDTO toDTO(TrainingSession entity) {
+        TrainingSessionDTO session = new TrainingSessionDTO();
+
+        session.setId(entity.getId());
+        session.setDate(entity.getDate());
+        session.setDurationMinutes(entity.getDurationMinutes());
+        session.setNotes(entity.getNotes());
+        session.setRating(entity.getRating());
+        session.setUserId(entity.getUser().getId());
+        session.setSkillId(entity.getSkill().getId());
+
+        return session;
+    }
 }
