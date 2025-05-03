@@ -19,6 +19,8 @@ import com.catWithATemper.Skilly.domain.User;
 import com.catWithATemper.Skilly.mapping.TrainingSessionMapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/trainingsessions")
@@ -45,7 +47,8 @@ public class TraningSessionsController {
     }
 
     @PostMapping
-    public ResponseEntity<TrainingSession> postMethodName(@RequestBody TrainingSessionDTO dto) {
+    public ResponseEntity<TrainingSession> createTraningSession(
+            @RequestBody TrainingSessionDTO dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found."));
 
@@ -55,6 +58,23 @@ public class TraningSessionsController {
         TrainingSession session = TrainingSessionMapper.fromDTO(dto, user, skill);
 
         return new ResponseEntity<>(trainingSessionRepository.save(session), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TrainingSession> updateTrainingSession(@PathVariable Long id,
+            @RequestBody TrainingSessionDTO dto) {
+        return trainingSessionRepository.findById(id).map(existingSession -> {
+            existingSession.setDate(dto.getDate());
+            existingSession.setDurationMinutes(dto.getDurationMinutes());
+            existingSession.setNotes(dto.getNotes());
+            existingSession.setRating(dto.getRating());
+            if (dto.getSkillId() != null) {
+                skillRepository.findById(dto.getSkillId()).ifPresent(existingSession::setSkill);
+            }
+            trainingSessionRepository.save(existingSession);
+
+            return ResponseEntity.ok(existingSession);
+        }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
