@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "app_user")
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -27,10 +28,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Set<TrainingSession> trainingSessions = new HashSet<>();
-
-    protected User() {
-        // Required by JPA
-    }
 
     public User(String name, String email) {
         this.name = name;
@@ -63,6 +60,10 @@ public class User {
 
     public Set<TrainingSession> getTrainingSessions() {
         return trainingSessions;
+    }
+
+    public void setTrainingSessions(Set<TrainingSession> trainingSessions) {
+        this.trainingSessions = trainingSessions;
     }
 
     @Override
