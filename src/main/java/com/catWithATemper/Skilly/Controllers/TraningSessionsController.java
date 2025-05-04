@@ -50,7 +50,7 @@ public class TraningSessionsController {
     }
 
     @PostMapping
-    public ResponseEntity<TrainingSession> createTraningSession(
+    public ResponseEntity<TrainingSessionDTO> createTraningSession(
             @RequestBody TrainingSessionDTO dto) {
         User user = userRepository.findById(dto.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found."));
@@ -60,11 +60,13 @@ public class TraningSessionsController {
 
         TrainingSession session = TrainingSessionMapper.fromDTO(dto, user, skill);
 
-        return new ResponseEntity<>(trainingSessionRepository.save(session), HttpStatus.CREATED);
+        TrainingSession savedSession = trainingSessionRepository.save(session);
+
+        return new ResponseEntity<>(TrainingSessionMapper.toDTO(savedSession), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TrainingSession> updateTrainingSession(@PathVariable Long id,
+    public ResponseEntity<TrainingSessionDTO> updateTrainingSession(@PathVariable Long id,
             @RequestBody TrainingSessionDTO dto) {
         return trainingSessionRepository.findById(id).map(existingSession -> {
             existingSession.setDate(dto.getDate());
@@ -74,9 +76,9 @@ public class TraningSessionsController {
             if (dto.getSkillId() != null) {
                 skillRepository.findById(dto.getSkillId()).ifPresent(existingSession::setSkill);
             }
-            trainingSessionRepository.save(existingSession);
+            TrainingSession savedSession = trainingSessionRepository.save(existingSession);
 
-            return ResponseEntity.ok(existingSession);
+            return ResponseEntity.ok(TrainingSessionMapper.toDTO(savedSession));
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
